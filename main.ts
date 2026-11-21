@@ -15,6 +15,16 @@ The door swung open.
 Inside, another door.
 They laughed, and chose again.`;
 
+// The competition requires a short poem: 1–280 characters.
+// Fail loudly instead of writing an entry that would be rejected.
+const poemLength = [...poem].length;
+if (poemLength < 1 || poemLength > 280) {
+  throw new Error(
+    `Poem must be 1–280 characters, got ${poemLength} characters.`,
+  );
+}
+
 const outDir = process.env.OUTPUT_DIR ?? "/output";
+const outPath = join(outDir, "entry.txt");
 mkdirSync(outDir, { recursive: true });
-writeFileSync(join(outDir, "entry.txt"), poem, "utf8");
+writeFileSync(outPath, poem, "utf8");
